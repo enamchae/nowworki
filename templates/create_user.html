@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <style>
-        input {
-    width: 20px;
+        .form-control {
+    width: 40%;
     }
     </style>
     <title></title>
@@ -19,8 +19,12 @@
 
         <form action="/create_user" method="POST">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" name="email" required class="form-control">
+                <label for="name">Name</label>
+                <input type="text" name="name" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="email">Username</label>
+                <input type="text" name="uid" required class="form-control">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>

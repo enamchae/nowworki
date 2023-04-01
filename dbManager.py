@@ -3,34 +3,35 @@ import hashlib
 
 
 # inserts a user with the corresponding password to the database
-def insert_user(email, password):
+def insert_user(name,uid, password):
     hashPassword = hashlib.md5(password.encode('utf-8')).hexdigest()
     connection = sql.connect('database.db')
-    connection.execute('INSERT INTO users (email, password) VALUES (?,?);', (email, hashPassword))
+    connection.execute('INSERT INTO user (name, uid, password) VALUES (?,?,?);', (name, uid, hashPassword))
     connection.commit()
 
 
-# Returns if an email and password is valid
-def is_valid_password(email, password):
+# Returns if an uid and password is valid
+def is_valid_password(uid, password):
     hashPassword = hashlib.md5(password.encode('utf-8')).hexdigest()
     connection = sql.connect('database.db')
-    cursor = connection.execute('SELECT password FROM users WHERE email=(?);', (email,))
+    cursor = connection.execute('SELECT password FROM user WHERE uid=(?);', (uid,))
 
     try:
         return cursor.fetchall()[0][0]==hashPassword
     except:
         False
 #Gives the type of the user
-def get_user_type(email):
+def get_user_type(uid):
     pass
 
-# Returns if an email is a user
-def is_user(email):
+# Returns if an uid is a user
+def is_user(uid):
     connection = sql.connect('database.db')
-    cursor = connection.execute('SELECT password FROM users WHERE email=(?);', (email,))
+    cursor = connection.execute('SELECT password FROM user WHERE uid=(?);', (uid,))
 
     return len(cursor.fetchall())>0
 
+#Get Posts of a category
 
 
 '''
