@@ -1,17 +1,9 @@
-* {
-    box-sizing: border-box;
-}
 
 body {
-    width: 100vw;
-    height: 100vh;
-    margin: 0;
-
     min-width: 800px;
     min-height: 800px;
 
     background: #000;
-    font-family: "Atkinson Hyperlegible", Overpass, sans-serif;
 }
 
 main {
