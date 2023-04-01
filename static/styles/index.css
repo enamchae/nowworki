@@ -3,7 +3,7 @@ body {
     min-width: 800px;
     min-height: 800px;
 
-    background: #000;
+    background: #15152c;
 }
 
 main {
@@ -45,7 +45,8 @@ main > .bubble-container {
 
     transform: translate(-50%, -50%);
 
-    background: var(--background);
+    /* background: var(--background); */
+    background: #75202b;
 
     display: grid;
     place-items: center;
