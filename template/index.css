@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+
+    min-width: 800px;
+    min-height: 800px;
+
+    background: #000;
+    font-family: "Atkinson Hyperlegible", Overpass, sans-serif;
+}
+
+main {
+    display: grid;
+    place-items: center;
+    grid-template-rows: 1fr 500px 1fr;
+
+    width: 100%;
+    height: 100%;
+    color: #ffffffcf;
+}
+
+main > h1 {
+    font-size: 4em;
+    color: #ffffff7f;
+}
+
+main > .bubble-container {
+    grid-area: 2/1 / 2/1;
+}
+
+.bubble-container {
+    position: relative;
+}
+
+.bubble-container > .bubble {
+    --bubble-size: 256px;
+    --background: #ffffff7f;
+    --top: 0;
+    --left: 0;
+    --circ-ease: cubic-bezier(0,1.11,.5,1);
+
+
+    border-radius: 50%;
+    position: absolute;
+
+    width: var(--bubble-size);
+    height: var(--bubble-size);
+
+    transform: translate(-50%, -50%);
+
+    background: var(--background);
+
+    display: grid;
+    place-items: center;
+
+    font-size: 2em;
+    font-weight: 700;
+
+    top: calc(var(--top) * var(--bubble-size) / 2);
+    left: calc(var(--left) * var(--bubble-size) / 2);
+
+    transition: transform .2s var(--circ-ease),
+            filter .2s var(--circ-ease);
+}
+
+.bubble-container > .bubble > a {
+    grid-area: 1/1 / 1/1;
+
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 100%;
+} 
+
+.bubble-container > .bubble.small {
+    --bubble-size: 120px;
+    font-size: 1.5em;
+}
+
+main > .bubble-container > .bubble:hover {
+    cursor: pointer;
+    filter: brightness(1.5);
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+main > .bubble-container > .bubble:active {
+    outline: 1px dashed var(--background);
+}
