@@ -5,6 +5,15 @@ qs(".back-button").addEventListener("click", () => {
     history.back();
 });
 
+const logoutButton = qs(".logout-button");
+logoutButton?.addEventListener("click", async () => {
+    const response = await fetch("/logout", {method: "POST"});
+
+    if (response.ok) {
+        location.replace("/");
+    }
+});
+
 const topic = globalThis.topic;
 const replyTargetPid = globalThis.replyTargetPid;
 
@@ -30,7 +39,8 @@ h2.addEventListener("keydown", event => {
 
 const statusIndicator = qs(".status-indicator");
 
-qs(".post-button").addEventListener("click", async () => {
+const postButton = qs(".post-button")
+postButton.addEventListener("click", async () => {
     const titleText = h2.textContent;
     if (!titleText) {
         statusIndicator.textContent = "Please enter a title!";
@@ -47,10 +57,12 @@ qs(".post-button").addEventListener("click", async () => {
     }
 
     const fulltimeRadio = qs("[name='fulltime']:checked");
-    if (!fulltimeRadio) {
+    if (!replyTargetPid && !fulltimeRadio) {
         statusIndicator.textContent = "Please indicate whether your post is for internship or full-time jobs!";
         return;
     }
+
+    postButton.classList.add("disabled");
 
 
     statusIndicator.textContent = "";
@@ -62,7 +74,8 @@ qs(".post-button").addEventListener("click", async () => {
             title: titleText,
             body: bodyText,
             topic,
-            fulltime: Boolean(Number(fulltimeRadio.value)),
+            fulltime: Boolean(Number(fulltimeRadio?.value)),
+            reply_target_pid: replyTargetPid,
         }),
     });
 
@@ -75,4 +88,5 @@ qs(".post-button").addEventListener("click", async () => {
         statusIndicator.classList.remove("loading");
         statusIndicator.textContent = "An error occurred!";
     }
+    postButton.classList.remove("disabled");
 });
