@@ -99,7 +99,9 @@ def get_posts(category, fulltime=False):
         print("Getting the posts")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor(buffered=True)
-        fun = 'SELECT User.name as firstname, Post.Title as Title,Post.PID as pid, entrytime FROM Post,User WHERE Post.UID=User.UID AND Category = (%s) AND FullTime= (%s) ORDER BY entrytime desc;'
+        fun = 'SELECT User.name as firstname, Post.Title as Title,Post.PID as pid, entrytime ' \
+              'FROM Post,User WHERE Post.UID=User.UID AND Category = (%s) AND FullTime= (%s) ' \
+              'ORDER BY entrytime desc;'
         cursor.execute(fun, (category, fulltime))
         db_connection.commit()
         return cursor.fetchall()
@@ -108,10 +110,10 @@ def get_posts(category, fulltime=False):
 def get_post(pid):
     if local:
         connection = sql.connect('database.db')
-        cursor = connection.execute('SELECT User.name as firstname, post.name as Title, text, time '
+        cursor = connection.execute('SELECT User.name as firstname, post.Title, text, entrytime '
                                     'FROM Post,User '
                                     'WHERE Post.UID=User.UID AND post.PID=(?)'
-                                    'ORDER BY time desc;', (pid,))
+                                    'ORDER BY entrytime desc;', (pid,))
 
         return cursor.fetchall()
     else:
