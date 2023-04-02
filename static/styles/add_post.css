@@ -1,0 +1,81 @@
+main {
+    max-width: 90ch;
+    margin: auto;
+    padding: 2em 0;
+}
+
+.editor-panel {
+    padding: 1em;
+    position: relative;
+    margin-top: 1em;
+
+    border: 2px solid #ffffff7f;
+    border-radius: 10px;
+}
+
+.editor-panel::before {
+    content: " ";
+    display: block;
+
+    width: 100%;
+    height: 12px;
+    --stripe-size: 8px;
+    background: repeating-linear-gradient(135deg,
+            #0000 0 var(--stripe-size),
+            #ffffff7f var(--stripe-size) calc(2 * var(--stripe-size)));
+
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 10px 10px 0 0;
+}
+
+h1 {
+    margin: 0;
+}
+
+[contenteditable] {
+    cursor: text;
+}
+
+[contenteditable]:empty::after {
+    content: attr(data-placeholder);
+    color: #ffffff3f;
+}
+
+[contenteditable]:focus {
+    outline-offset: 0.25em;
+}
+
+.body {
+    margin: 16px 0;
+}
+
+.body > div { /* same as <p> */
+    margin: 16px 0;
+}
+
+.post-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.status-indicator.loading {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    border: 4px solid;
+    border-color: #ffffff7f #ffffff7f #0000 #0000;
+    animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

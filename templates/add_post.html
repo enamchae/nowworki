@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+
+        <script type="module">
+            globalThis.topic = "{{topic}}";
+            globalThis.replyTargetPid = "{{reply_target_pid}}";
+        </script>
+
+        <link href="{{ url_for('static', filename='styles/common.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='styles/add_post.css') }}" rel="stylesheet" />
+        <script src="{{ url_for('static', filename='styles/add_post.js') }}" type="module"></script>
+
+        <title></title>
+    </head>
+
+    <body>
+        <main>
+            <button class="back-button">🡠 Back</button>
+
+            <div class="editor-panel">
+                <h1>Add a post</h1>
+
+                <p>Posting to {{topic.capitalize()}}</p>
+                {% if reply_target_pid %}
+                <p>Responding to …</p>
+
+                {% endif %}
+                <hr />
+    
+                <div class="post editor">
+                    <h2 contenteditable
+                            data-placeholder="Enter a title"></h2>
+        
+                    <div contenteditable
+                            data-placeholder="Write your heart out"
+                            class="body"></div>
+                </div>
+    
+                <hr />
+    
+                <div class="post-row">
+                    <button class="post-button">⤒ Post</button>
+    
+                    <span class="status-indicator"></span>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
