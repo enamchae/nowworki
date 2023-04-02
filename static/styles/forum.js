@@ -1,5 +1,13 @@
+
+const searchOptions = document.querySelector(".post-search-options");
 document.querySelector(".switch").addEventListener("click", event => {
-    event.currentTarget.classList.toggle("switched");
+    const classList = event.currentTarget.classList;
+
+    classList.toggle("switched");
+    classList.toggle("switched-off", !classList.contains("switched"));
+
+    searchOptions.firstElementChild.classList.toggle("disabled", classList.contains("switched"));
+    searchOptions.lastElementChild.classList.toggle("disabled", !classList.contains("switched"));
 });
 
 for (const element of document.querySelectorAll(".post-preview")) {

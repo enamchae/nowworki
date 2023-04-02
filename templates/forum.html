@@ -20,10 +20,10 @@
             <div class="header">
                 <!-- <a href="/" class="material-symbols-outlined">arrow_back</a> -->
                 <a href="/">
-                    <button>🡠 Back</button>
+                    <button>🡠 Home</button>
                 </a>
 
-                <div>NowWork¡ / Topic</div>
+                <div>NowWork¡ / {{topic.capitalize()}}</div>
 
                 <a href="/addpost">
                     <button>＋ Add post</button>
@@ -32,13 +32,13 @@
                 
             <div class="post-list">
                 <div class="post-search-options">
-                    <div>Internship</div>
+                    <div class="label">Internship</div>
 
                     <button class="switch">
                         <div class="switch-handle"></div>
                     </button>
 
-                    <div>Full-time</div>
+                    <div class="label disabled">Full-time</div>
                 </div>
 
                 <ul>
@@ -70,7 +70,7 @@
                         <hr />
                     </div>
                     <a href="/addpost">
-                        <button>⤶ Write a reply</button>
+                        <button>↩ Write a reply</button>
                     </a>
                 </div>
             </div>

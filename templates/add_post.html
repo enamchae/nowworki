@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link href="{{ url_for('static', filename='styles/common.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='styles/add_post.css') }}" rel="stylesheet" />
+        <script src="{{ url_for('static', filename='styles/add_post.js') }}" type="module"></script>
+
+        <title></title>
+    </head>
+
+    <body>
+        <main>
+            <button class="back-button">🡠 Back</button>
+
+            <div class="editor-panel">
+                <h1>Add a post</h1>
+    
+                <hr />
+    
+                <div class="post editor">
+                    <h2 contenteditable
+                            data-placeholder="Enter a title"></h2>
+        
+                    <div contenteditable
+                            data-placeholder="Write your heart out"
+                            class="body"></div>
+                </div>
+    
+                <hr />
+    
+                <button class="post-button">⤒ Post</button>
+            </div>
+        </main>
+    </body>
+</html>

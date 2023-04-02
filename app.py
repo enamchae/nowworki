@@ -63,7 +63,7 @@ def indexjs():
 @app.route('/forum/<string:topic>')
 def forum(topic: str):
     request = dbm.get_posts(topic)
-    return render_template('forum.html', result=request)
+    return render_template('forum.html', topic=topic, result=request)
 
 @app.route('/forumleftrep/<string:pid>')
 def forumleftrep(pid: str):
@@ -75,6 +75,11 @@ def forumrightrep(pid: str):
     primarytext = dbm.get_post(pid)
     values = dbm.get_postRep(pid)
     return render_template('forumrightrep.html', result=values, primarytext=primarytext)
+
+@app.route('/addpost')
+def addpost():
+    return render_template('add_post.html')
+
 
 if __name__ == '__main__':
     app.run()
