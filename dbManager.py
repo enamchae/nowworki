@@ -20,6 +20,7 @@ if not local:
     cursor.execute("select database();")
     db = cursor.fetchone()
     print("You're connected to dtabase: ", db)
+    db = cursor.fetchall()
     connector.close()
 # inserts a user with the corresponding password to the database
 def insert_user(name,uid, password):
@@ -97,12 +98,11 @@ def get_posts(category, fulltime=False):
     else:
         print("Getting the posts")
         db_connection = mysql.connector.connect(**info)
-        cursor = db_connection.cursor()
-        cursor.execute('SELECT User.name as firstname, post.name as Title,Post.pid as pid, time '
-                                    'FROM Post,User '
-                                    'WHERE Post.UID=User.UID AND Category = (?) AND FullTime= (?)'
-                                    'ORDER BY time desc;', (category, fulltime))
+        cursor = db_connection.cursor(buffered=True)
+        fun = 'SELECT User.name as firstname, Post.Title as Title,Post.PID as pid, time FROM Post,User WHERE Post.UID=User.UID AND Category = (%s) AND FullTime= (%s) ORDER BY time desc;'
+        cursor.execute(fun, (category, fulltime))
         db_connection.commit()
+        return cursor.fetchall()
 
 #Implementation to get the post text
 def get_post(pid):
@@ -118,9 +118,9 @@ def get_post(pid):
         print("Getting a post value")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor()
-        cursor.execute('SELECT User.name as firstname, post.name as Title, text, time '
+        cursor.execute('SELECT User.name as firstname, Title, text, time '
                                     'FROM Post,User '
-                                    'WHERE Post.UID=User.UID AND post.PID=(?)'
+                                    'WHERE Post.UID=User.UID AND post.PID=(%s)'
                                     'ORDER BY time desc;', (pid,))
         db_connection.commit()
         return cursor.fetchall()
