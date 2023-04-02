@@ -7,9 +7,11 @@
      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='static/styles/about.css}}">
 </head>
 <body>
-    <header>
-        <a href="#" class="back-button"><i class="fa fa-arrow-left"></i></a>
-    </header>
+    {% if show_back_button %}
+        <header>
+            <a href="#" class="back-button"><i class="fa fa-arrow-left"></i></a>
+        </header>
+    {% endif %}
     <main>
         <section class="about">
             <h2>Welcome to NowWorki</h2>

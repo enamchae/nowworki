@@ -159,8 +159,8 @@ def help():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
-
+    show_back_button = True
+    return render_template('about.html', show_back_button=show_back_button)
 
 
 
