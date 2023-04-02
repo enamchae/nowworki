@@ -38,6 +38,8 @@ def create_user():
             msg = "Username provided is too short, make the username longer than 4"
         elif dbm.is_user(uid):
             msg = "Account with this uid already exist"
+        elif len(uid)>10:
+            msg = "Username is too long!"
         elif password == "" :
             #No password was entered
             msg = "No password was entered, try again!"
@@ -46,6 +48,8 @@ def create_user():
             msg = "Password is too short, has to be at least 7 characters"
         elif len(name)<2:
             msg = "No name was entered, try again!"
+        elif len(name)>20:
+            msg = "Name is too long!"
         else:
             dbm.insert_user(name,uid, password)
             return redirect('/login')
