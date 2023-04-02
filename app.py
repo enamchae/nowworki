@@ -139,6 +139,12 @@ def record_post():
         new_post_id=0, #placeholder pid
     )
 
+@app.route('/help')
+def help():
+    return render_template('help.html')
+
+
+
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
