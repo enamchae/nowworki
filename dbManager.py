@@ -168,7 +168,7 @@ def insert_postrep(uid, text, pid,Title):
     if local:
         unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
         connection = sql.connect('database.db')
-        cursor = connection.execute('INSERT INTO PostRep (uid,text,pid,rid,time) VALUES (?,?,?,?,?);',
+        cursor = connection.execute('INSERT INTO PostRep (uid,text,pid,rid) VALUES (?,?,?,?);',
                                     (uid, text, pid, rid, unix_timestamp))
         return cursor.fetchall()
     else:
