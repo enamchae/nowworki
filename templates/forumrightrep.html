@@ -1,7 +1,7 @@
-{% for firstname, Title, text, time in primarytext %}
+{% for firstname, Title, text, time,pid in primarytext %}
 <h2>{{Title}}</h2>
 
-<div class="byline">
+<div class="byline" data.pid="{{pid}}">
     <div>{{ firstname }}</div>
     <div>{{ time }}</div>
 </div>
