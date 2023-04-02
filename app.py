@@ -102,12 +102,14 @@ def forumrightrep(pid: str):
     primarytext = dbm.get_post(pid)
     values = dbm.get_postRep(pid)
 
+    replies_empty = len(values) == 0
+
     if "topic" not in request.args:
         return "Missing topic", 400
     
     topic = request.args.get("topic")
 
-    return render_template('forumrightrep.html', result=values, primarytext=primarytext, topic=topic)
+    return render_template('forumrightrep.html', result=values, primarytext=primarytext, topic=topic, replies_empty=replies_empty)
 
 @app.route('/addpost')
 def addpost():

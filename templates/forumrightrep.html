@@ -15,6 +15,9 @@
     <button>↩ Write a reply</button>
 </a>
 {% endfor %}
+{% if not replies_empty %}
+<h1>Responses</h1>
+{% endif %}
 {% for RID, Title, firstname, text, time in result %}
 <h2>{{Title}}</h2>
 
@@ -25,8 +28,4 @@
 
 <p>{{ text}}</p>
 <hr />
-
-<a href="/addpost?topic={{topic}}&reply_target_pid=0">
-    <button>↩ Write a reply</button>
-</a>
 {% endfor %}
