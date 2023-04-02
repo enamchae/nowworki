@@ -33,7 +33,7 @@ def insert_user(name,uid, password):
 
         print("Inserting User")
         db_connection = mysql.connector.connect(**info)
-        cursor = db_connection.cursor()
+        cursor = db_connection.cursor(buffered=True)
         querry = "INSERT INTO User (name, UID, password) VALUES (%s,%s,%s);"
         print((name,uid,hashPassword))
         cursor.execute(querry,(name,uid,hashPassword))
@@ -55,8 +55,8 @@ def is_valid_password(uid, password):
     else:
         print("Testing if valid password")
         db_connection = mysql.connector.connect(**info)
-        cursor = db_connection.cursor()
-        querry = "('SELECT password FROM User WHERE UID=(%s);"
+        cursor = db_connection.cursor(buffered=True)
+        querry = "SELECT password FROM User WHERE UID=(%s);"
         cursor.execute(querry, (uid,))
         db_connection.commit()
         try:
@@ -77,8 +77,8 @@ def is_user(uid):
     else:
         print("Testing if is an user")
         db_connection = mysql.connector.connect(**info)
-        cursor = db_connection.cursor()
-        querry = "('SELECT password FROM User WHERE UID=(%s);"
+        cursor = db_connection.cursor(buffered=True)
+        querry = "SELECT password FROM User WHERE UID=(%s);"
         cursor.execute(querry, (uid,))
         db_connection.commit()
 
@@ -138,10 +138,10 @@ def get_postRep(pid):
     else:
         print("Getting the post replys")
         db_connection = mysql.connector.connect(**info)
-        cursor = db_connection.cursor(buffered=True)
-        cursor.execute('SELECT RID, Title, User.name as firstname, text, entrytime '
+        cursor = db_connection.cursor()
+        cursor.execute('SELECT RID, PostRep.name as Title, USER.name as firstname, text, entrytime '
                                     'FROM PostRep,User '
-                                    'WHERE PostRep.UID=User.UID AND PID = (%s) '
+                                    'WHERE PostRep.UID=User.name AND PID = (?) '
                                     'ORDER BY RID asc;', (pid,))
         db_connection.commit()
         return cursor.fetchall()
@@ -160,13 +160,12 @@ def insert_post(uid, category,text,Fulltime,Title,time):
         print("Inserting Post")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor()
-        cursor.execute('INSERT INTO Post (uid, category,text,Fulltime,Title) VALUES (%s,%s,%s,%s);', (uid, category,text,Fulltime,Title))
+        cursor.execute('INSERT INTO Post (uid, category,text,Fulltime,Title) VALUES (%s,%s,%s,%s,%s);', (uid, category,text,Fulltime,Title))
         db_connection.commit()
-        return
+        return cursor.fetchall()
 
-def insert_postrep(uid, text, pid, rid):
+def insert_postrep(uid, text, pid, rid, time):
     if local:
-        time = 5
         unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
         connection = sql.connect('database.db')
         cursor = connection.execute('INSERT INTO PostRep (uid,text,pid,rid,time) VALUES (?,?,?,?,?);',
@@ -177,7 +176,7 @@ def insert_postrep(uid, text, pid, rid):
         print("Inserting post reply")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor()
-        cursor.execute('INSERT INTO PostRep (uid,text,pid,rid) VALUES (%s,%s,%s,%s);',
+        cursor.execute('INSERT INTO PostRep (uid,text,pid,rid) VALUES (?,?,?,?);',
                                     (uid, text, pid, rid))
         db_connection.commit()
         return cursor.fetchall()

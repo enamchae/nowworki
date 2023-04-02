@@ -65,8 +65,13 @@ def indexjs():
 
 @app.route('/forum/<string:topic>')
 def forum(topic: str):
+    if "uid" in session:
+        user = session["uid"]
+    else:
+        user = None
+
     request = dbm.get_posts(topic)
-    return render_template('forum.html', topic=topic, result=request)
+    return render_template('forum.html', topic=topic, result=request, user=user)
 
 @app.route('/forumleftrep/<string:pid>')
 def forumleftrep(pid: str):
@@ -81,6 +86,9 @@ def forumrightrep(pid: str):
 
 @app.route('/addpost')
 def addpost():
+    if "uid" not in session:
+        return redirect("/login")
+
     if "topic" not in request.args:
         return ("Missing topic", 404)
 
@@ -102,10 +110,10 @@ def record_post():
     body: AddPostBody = json.loads(request.data)
 
     if "uid" not in session:
-        return "Not logged in", 403
+        return ("Not logged in", 403)
 
     uid = session["uid"]
-    new_post = dbm.insert_post(uid, body["topic"], body["body"], body["fulltime"], int(time.time() * 1000))
+    new_post = dbm.insert_post(uid, body["topic"], body["body"], body["fulltime"], body["title"], int(time.time() * 1000))
 
     print(new_post)
     
