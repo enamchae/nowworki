@@ -101,7 +101,7 @@ def get_posts(category, fulltime=False):
         cursor.execute('SELECT User.name as firstname, post.name as Title,Post.pid as pid, time '
                                     'FROM Post,User '
                                     'WHERE Post.UID=User.UID AND Category = (?) AND FullTime= (?)'
-                                    'ORDER BY time desc;', (category, type))
+                                    'ORDER BY time desc;', (category, fulltime))
         db_connection.commit()
 
 #Implementation to get the post text
@@ -145,8 +145,9 @@ def get_postRep(pid):
         return cursor.fetchall()
 
 #Allows the creation of posts for the user
-def insert_post(uid, category,text,PID,Fulltime,time):
+def insert_post(uid, category,text,Fulltime,time):
     if local:
+        PID=12312
         unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
         connection = sql.connect('database.db')
         cursor = connection.execute('INSERT INTO post (uid, category,text,PID,Fulltime,time) VALUES (?,?,?,?,?,?);', (uid, category,text,PID,Fulltime,unix_timestamp))
@@ -156,7 +157,7 @@ def insert_post(uid, category,text,PID,Fulltime,time):
         print("Inserting Post")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor()
-        cursor.execute('INSERT INTO post (uid, category,text,PID,Fulltime,time) VALUES (?,?,?,?,?,?);', (uid, category,text,PID,Fulltime,unix_timestamp))
+        cursor.execute('INSERT INTO post (uid, category,text,Fulltime,time) VALUES (?,?,?,?,?,?);', (uid, category,text,Fulltime,unix_timestamp))
         db_connection.commit()
         return cursor.fetchall()
 
