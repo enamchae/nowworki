@@ -32,8 +32,24 @@ def is_user(uid):
     return len(cursor.fetchall())>0
 
 #Get Posts of a category
+def get_post(category, fulltime=False):
+    type= int(fulltime)
+    connection = sql.connect('database.db')
+    cursor = connection.execute('SELECT PID, name, text, time '
+                                'FROM Post,User '
+                                'WHERE Post.UID=User.UID AND Category = (?) AND FullTime= (?)'
+                                'ORDER BY time desc;', (category, type))
 
+    return cursor.fetchall()
 
+#Implement the getting the replys
+def get_postRep(pid):
+    cursor = connection.execute('SELECT RID, name, text, time '
+                                'FROM PostRep,User '
+                                'WHERE Post.UID=User.name AND PID = (?) '
+                                'ORDER BY RID asc;', (pid,))
+
+    return cursor.fetchall()
 '''
 def valid_name(first_name, last_name):
     connection = sql.connect('database.db')
