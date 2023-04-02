@@ -1,6 +1,7 @@
 main {
     max-width: 90ch;
-    margin: 2em auto;
+    margin: auto;
+    padding: 2em 0;
 }
 
 .editor-panel {
@@ -17,7 +18,7 @@ main {
     display: block;
 
     width: 100%;
-    height: 8px;
+    height: 12px;
     --stripe-size: 8px;
     background: repeating-linear-gradient(135deg,
             #0000 0 var(--stripe-size),
@@ -52,4 +53,29 @@ h1 {
 
 .body > div { /* same as <p> */
     margin: 16px 0;
+}
+
+.post-row {
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+}
+
+.status-indicator.loading {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    border: 4px solid;
+    border-color: #ffffff7f #ffffff7f #0000 #0000;
+    animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

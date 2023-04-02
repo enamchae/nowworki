@@ -14,7 +14,8 @@ body {
     height: 100vh;
     margin: 0;
 
-    background: var(--col-bg);
+    /* background: var(--col-bg); */
+    background: radial-gradient(circle at center, var(--col-bg), #0a0717);
     color: #fff;
 
     font-family: "Atkinson Hyperlegible", Overpass, sans-serif;

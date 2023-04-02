@@ -1,4 +1,6 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, jsonify
+import json
+from typing import TypedDict
 import dbManager as dbm
 app = Flask(__name__)
 
@@ -78,7 +80,30 @@ def forumrightrep(pid: str):
 
 @app.route('/addpost')
 def addpost():
-    return render_template('add_post.html')
+    if "topic" not in request.args:
+        return ("Missing topic", 404)
+
+    topic = request.args.get('topic')
+    reply_target_pid = (request.args.get('reply_target_pid')
+            if 'reply_target_pid' in request.args else '')
+    return render_template('add_post.html', topic=topic, reply_target_pid=reply_target_pid)
+
+
+class AddPostBody(TypedDict):
+    title: str
+    body: str
+    topic: str
+
+@app.route('/api/post', methods=['POST']) 
+def record_post():
+    body: AddPostBody = json.loads(request.data)
+
+    uid = 0 # placeholder uid
+    # dbm.insert_post()
+    
+    return jsonify(
+        new_post_id=0, # placeholder pid
+    )
 
 
 if __name__ == '__main__':
