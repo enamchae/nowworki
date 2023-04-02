@@ -141,7 +141,7 @@ def get_postRep(pid):
         cursor = db_connection.cursor(buffered=True)
         cursor.execute('SELECT RID, PostRep.Title, User.name as firstname, text, entrytime '
                                     'FROM PostRep,User '
-                                    'WHERE PostRep.UID=User.name AND PID = (%s) '
+                                    'WHERE PostRep.UID=User.UID AND PID = (%s) '
                                     'ORDER BY RID asc;', (pid,))
         db_connection.commit()
         return cursor.fetchall()
@@ -168,7 +168,7 @@ def insert_postrep(uid, text, pid,Title):
     if local:
         unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
         connection = sql.connect('database.db')
-        cursor = connection.execute('INSERT INTO PostRep (uid,text,pid,rid,time) VALUES (?,?,?,?,?);',
+        cursor = connection.execute('INSERT INTO PostRep (uid,text,pid,rid) VALUES (?,?,?,?);',
                                     (uid, text, pid, rid, unix_timestamp))
         return cursor.fetchall()
     else:
