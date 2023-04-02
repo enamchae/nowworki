@@ -164,8 +164,9 @@ def insert_post(uid, category,text,Fulltime,Title,time):
         db_connection.commit()
         return
 
-def insert_postrep(uid, text, pid, rid, time):
+def insert_postrep(uid, text, pid, rid):
     if local:
+        time = 5
         unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
         connection = sql.connect('database.db')
         cursor = connection.execute('INSERT INTO PostRep (uid,text,pid,rid,time) VALUES (?,?,?,?,?);',
@@ -176,7 +177,7 @@ def insert_postrep(uid, text, pid, rid, time):
         print("Inserting post reply")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor()
-        cursor.execute('INSERT INTO PostRep (uid,text,pid,rid) VALUES (?,?,?,?);',
+        cursor.execute('INSERT INTO PostRep (uid,text,pid,rid) VALUES (%s,%s,%s,%s);',
                                     (uid, text, pid, rid))
         db_connection.commit()
         return cursor.fetchall()
