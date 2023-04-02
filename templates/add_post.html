@@ -24,6 +24,23 @@
                 <h1>Add a post</h1>
 
                 <p>Posting to {{topic.capitalize()}}</p>
+                <p>
+                    Relevant for
+                    <span class="fulltime-radios">
+                        <span>
+                            <input type="radio"
+                                    id="internships-radio"
+                                    name="fulltime"
+                                    value="0" /> <label for="internships-radio">Internships</label>
+                        </span>
+                        <span>
+                            <input type="radio"
+                                    id="fulltime-radio"
+                                    name="fulltime"
+                                    value="1" /> <label for="fulltime-radio">Full-time</label>
+                        </span>
+                    </span>
+                </p>
                 {% if reply_target_pid %}
                 <p>Responding to …</p>
 

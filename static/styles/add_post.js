@@ -31,16 +31,38 @@ h2.addEventListener("keydown", event => {
 const statusIndicator = qs(".status-indicator");
 
 qs(".post-button").addEventListener("click", async () => {
+    const titleText = h2.textContent;
+    if (!titleText) {
+        statusIndicator.textContent = "Please enter a title!";
+        return;
+    }
+
+    const bodyText = [...body.children]
+            .map(paragraph => paragraph.textContent)
+            .join("\n")
+            || body.textContent;
+    if (!bodyText) {
+        statusIndicator.textContent = "Please enter text in the body of your post!";
+        return;
+    }
+
+    const fulltimeRadio = qs("[name='fulltime']:checked");
+    if (!fulltimeRadio) {
+        statusIndicator.textContent = "Please indicate whether your post is for internship or full-time jobs!";
+        return;
+    }
+
+
+    statusIndicator.textContent = "";
     statusIndicator.classList.add("loading");
     
     const response = await fetch("/api/post", {
         method: "POST",
         body: JSON.stringify({
-            title: h2.textContent,
-            body: [...body.children]
-                    .map(paragraph => paragraph.textContent)
-                    .join("\n"),
+            title: titleText,
+            body: bodyText,
             topic,
+            fulltime: Boolean(Number(fulltimeRadio.value)),
         }),
     });
 

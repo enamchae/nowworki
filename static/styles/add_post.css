@@ -34,6 +34,26 @@ h1 {
     margin: 0;
 }
 
+.fulltime-radios {
+    display: inline-flex;
+    gap: 1em;
+    margin: 0 1em;
+}
+
+input[type="radio"] {
+    accent-color: var(--col-accent);
+
+    transition: box-shadow 0.1s var(--near-circ-ease);
+}
+
+input[type="radio"]:checked {
+    box-shadow: 0 0 0 2px #ffffffaf;
+}
+
+input[type="radio"]:checked + label {
+    border-bottom: 2px solid #ffffff7f;
+}
+
 [contenteditable] {
     cursor: text;
 }

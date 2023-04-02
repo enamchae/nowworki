@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, session, redirect, jsonify
 import json
+import time
 from typing import TypedDict
 import dbManager as dbm
 app = Flask(__name__)
@@ -93,16 +94,23 @@ class AddPostBody(TypedDict):
     title: str
     body: str
     topic: str
+    fulltime: bool
+
 
 @app.route('/api/post', methods=['POST']) 
 def record_post():
     body: AddPostBody = json.loads(request.data)
 
-    uid = 0 # placeholder uid
-    # dbm.insert_post()
+    if "uid" not in session:
+        return "Not logged in", 403
+
+    uid = session["uid"]
+    new_post = dbm.insert_post(uid, body["topic"], body["body"], body["fulltime"], int(time.time() * 1000))
+
+    print(new_post)
     
     return jsonify(
-        new_post_id=0, # placeholder pid
+        new_post_id=0, #placeholder pid
     )
 
 
