@@ -1,6 +1,18 @@
+const qs = (selector, context=document) => context.querySelector(selector);
+const qsa = (selector, context=document) => context.querySelectorAll(selector);
 
-const searchOptions = document.querySelector(".post-search-options");
-document.querySelector(".switch").addEventListener("click", event => {
+const logoutButton = qs(".logout-button");
+logoutButton?.addEventListener("click", async () => {
+    const response = await fetch("/logout", {method: "POST"});
+
+    if (response.ok) {
+        location.replace("/");
+    }
+});
+
+
+const searchOptions = qs(".post-search-options");
+qs(".switch").addEventListener("click", event => {
     const classList = event.currentTarget.classList;
 
     classList.toggle("switched");
@@ -14,7 +26,7 @@ document.querySelector(".switch").addEventListener("click", event => {
     location.replace(`${location.pathname}?${urlSearchParams}`);
 });
 
-for (const element of document.querySelectorAll(".post-preview")) {
+for (const element of qsa(".post-preview")) {
     element.addEventListener("click", setActive);
 }
 let currentActivePostElement = null;
@@ -24,7 +36,7 @@ function setActive(event) {
         if(currentActivePostElement !== null) {
             currentActivePostElement.style.display = "none";
         }
-        pid = event.currentTarget.getAttribute("pid");
+        pid = event.currentTarget.getAttribute("data-pid");
         const ul = event.currentTarget.nextElementSibling;
         ul.style.display = "";
         console.log(ul);
@@ -37,7 +49,7 @@ function setActive(event) {
                 .then(text => {
                     ul.innerHTML = text;
                 })
-        rightdiv = document.getElementById(textOutput);
+        const rightdiv = document.getElementById("textOutput");
         const thesecondurl = "/forumrightrep/"+ pid;
         fetch(thesecondurl, {method: "GET"})
                 .then(response => response.text())
