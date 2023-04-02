@@ -1,35 +1,34 @@
 Create User Table
 
     Create TABLE user(
-    name TEXT,
-    UID TEXT,
-    password TEXT not null,
+    name varchar(20),
+    UID varchar(10),
+    password char(32) not null,
     PRIMARY KEY(UID)
     )
 
 Create Posts
 
     Create TABLE Post(
-    UID TEXT,
-    Category TEXT not null,
+    UID varchar(10),
+    Category varchar(10),
     text TEXT not null,
     PID int not null,
-    FullTime int,
-    time int not null,
-    name TEXT not null,
+    FullTime bool,
+    time time not null,
+    title TEXT not null,
     PRIMARY KEY (PID),
-    FOREIGN KEY (UID) REFERENCES User
-    )
+    FOREIGN KEY(UID) REFERENCES user(UID))
 Create Post Replies
 
     Create TABLE PostRep(
-        UID TEXT,
+        UID varchar(10),
         text TEXT not null,
         PID int,
-        RID int,
-        time int,
-        name text,
+        RID tinyint,
+        time time,
+        Title text,
         PRIMARY KEY (PID, RID),
-        FOREIGN KEY (PID) REFERENCES Post,
-        FOREIGN KEY (UID) REFERENCES User
+        FOREIGN KEY (PID) REFERENCES Post(PID),
+        FOREIGN KEY (UID) REFERENCES User(UID)
     )
