@@ -3,7 +3,7 @@ body {
     min-width: 800px;
     min-height: 800px;
 
-    background: #15152c;
+    background: var(--col-bg);
 }
 
 main {
@@ -34,31 +34,33 @@ main > .bubble-container {
     --background: #ffffff7f;
     --top: 0;
     --left: 0;
-    --circ-ease: cubic-bezier(0,1.11,.5,1);
 
-
-    border-radius: 50%;
-    position: absolute;
-
-    width: var(--bubble-size);
-    height: var(--bubble-size);
-
-    transform: translate(-50%, -50%);
-
-    /* background: var(--background); */
-    background: #75202b;
+    --scale: 1;
 
     display: grid;
     place-items: center;
-
-    font-size: 2em;
-    font-weight: 700;
+    position: absolute;
+    width: var(--bubble-size);
+    height: var(--bubble-size);
 
     top: calc(var(--top) * var(--bubble-size) / 2);
     left: calc(var(--left) * var(--bubble-size) / 2);
+    border: 2px solid #ffffff7f;
+    box-shadow: 0 0 24px -8px #ffffff7f;
 
-    transition: transform .2s var(--circ-ease),
-            filter .2s var(--circ-ease);
+    transform: translate(-50%, -50%) scale(var(--scale));
+
+    /* background: var(--background); */
+    background: var(--col-accent);
+    border-radius: 50%;
+
+    font-size: 2em;
+    font-weight: 700;
+    
+    cursor: pointer;
+
+    transition: transform .2s var(--near-circ-ease),
+            filter .2s var(--near-circ-ease);
 }
 
 .bubble-container > .bubble > a {
@@ -76,11 +78,11 @@ main > .bubble-container {
 }
 
 main > .bubble-container > .bubble:hover {
-    cursor: pointer;
     filter: brightness(1.5);
-    transform: translate(-50%, -50%) scale(1.1);
+    --scale: 1.1;
 }
 
 main > .bubble-container > .bubble:active {
-    outline: 1px dashed var(--background);
+    filter: brightness(0.8);
+    --scale: 0.95;
 }

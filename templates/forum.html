@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link href="{{ url_for('static', filename='styles/common.css') }}" rel="stylesheet" />
+        <link href="{{ url_for('static', filename='styles/forum.css') }}" rel="stylesheet" />
+        <script src="{{ url_for('static', filename='styles/forum.js') }}" type="module"></script>
+        
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400,700;1,400,700&display=swap" rel="stylesheet" /> 
+        <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
+
+        <title>{{name}}</title>
+    </head>
+
+    <body>
+        <main>
+            <div class="header">
+                <!-- <a href="/" class="material-symbols-outlined">arrow_back</a> -->
+                <a href="/">
+                    <button>🡠 Back</button>
+                </a>
+
+                <div>NowWork¡ / Topic</div>
+
+                <a href="/addpost">
+                    <button>＋ Add post</button>
+                </a>
+            </div>
+                
+            <div class="post-list">
+                <div class="post-search-options">
+                    <div>Internship</div>
+
+                    <button class="switch">
+                        <div class="switch-handle"></div>
+                    </button>
+
+                    <div>Full-time</div>
+                </div>
+
+                <ul>
+                    <li>
+                        <button class="post-preview">
+                            <h2>Post title</h2>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="post-preview active">
+                            <h2>Post title</h2>
+                        </button>
+                        <ul>
+                            <li>
+                                <button class="post-preview">
+                                    <h2>Y</h2>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="post-preview">
+                                    <h2>Y</h2>
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="post-preview">
+                            <h2>Post title</h2>
+                        </button>
+                        <ul>
+                            <li>
+                                <button class="post-preview">
+                                    <h2>Y</h2>
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="post">
+                <div>
+                    <h2>Post title</h2>
+
+                    <div class="byline">
+                        <div>Firstname Lastname</div>
+                        <div>Timestamp</div>
+                    </div>
+
+                    <p>I just wanted to share my experience of how networking helped me land my dream tech job. After applying to dozens of jobs online and not hearing back, I realized that I needed to take a more proactive approach.</p>
+                    
+                    <p>I started attending local tech events and meetups, and even joined a few online communities. This allowed me to meet people in the industry, learn about new trends and technologies, and most importantly, build relationships.</p>
+
+                    <hr />
+
+                    <a href="/addpost">
+                        <button>⤶ Write a reply</button>
+                    </a>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

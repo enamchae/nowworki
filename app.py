@@ -60,6 +60,9 @@ def indexcss():
 def indexjs():
     return render_template('/index.js')'''
 
+@app.route('/forum/<string:topic>')
+def forum(topic: str):
+    return render_template('forum.html')
 
 
 if __name__ == '__main__':

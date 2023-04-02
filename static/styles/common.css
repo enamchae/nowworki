@@ -2,6 +2,13 @@
     box-sizing: border-box;
 }
 
+:root {
+    --col-bg: #15152c; 
+    --col-accent: #75202b;
+
+    --near-circ-ease: cubic-bezier(0,1.11,.5,1);
+}
+
 body {
     width: 100vw;
     height: 100vh;
