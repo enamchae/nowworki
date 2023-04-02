@@ -117,7 +117,7 @@ def get_post(pid):
     else:
         print("Getting a post value")
         db_connection = mysql.connector.connect(**info)
-        cursor = db_connection.cursor()
+        cursor = db_connection.cursor(buffered=True)
         cursor.execute('SELECT User.name as firstname, Title, text, time '
                                     'FROM Post,User '
                                     'WHERE Post.UID=User.UID AND post.PID=(%s)'
@@ -137,7 +137,7 @@ def get_postRep(pid):
         print("Getting the post replys")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor()
-        cursor.execute('SELECT RID, PostRep.name as Title, USER.name as firstname, text, time '
+        cursor.execute('SELECT RID, PostRep.name as Title, USER.name as firstname, text, entrytime '
                                     'FROM PostRep,User '
                                     'WHERE PostRep.UID=User.name AND PID = (?) '
                                     'ORDER BY RID asc;', (pid,))
@@ -157,7 +157,7 @@ def insert_post(uid, category,text,Fulltime,time):
         print("Inserting Post")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor()
-        cursor.execute('INSERT INTO post (uid, category,text,Fulltime,time) VALUES (?,?,?,?,?,?);', (uid, category,text,Fulltime,unix_timestamp))
+        cursor.execute('INSERT INTO post (uid, category,text,Fulltime) VALUES (?,?,?,?,?);', (uid, category,text,Fulltime))
         db_connection.commit()
         return cursor.fetchall()
 
