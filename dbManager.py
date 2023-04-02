@@ -51,6 +51,17 @@ def get_postRep(pid):
                                 'ORDER BY RID asc;', (pid,))
 
     return cursor.fetchall()
+#Allows the creation of posts for the user
+def insert_post(uid, category,text,PID,Fulltime,time):
+    connection = sql.connect('database.db')
+    cursor = connection.execute('INSERT INTO post (uid, category,text,PID,Fulltime,time) VALUES (?,?,?,?,?,?);', (uid, category,text,PID,Fulltime,time))
+    return cursor.fetchall()
+
+def insert_postrep(uid, text, pid, rid, time):
+    connection = sql.connect('database.db')
+    cursor = connection.execute('INSERT INTO PostRep (uid,text,pid,rid,time) VALUES (?,?,?,?,?);',
+                                (uid, text, pid, rid, time))
+    return cursor.fetchall()
 '''
 def valid_name(first_name, last_name):
     connection = sql.connect('database.db')
