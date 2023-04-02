@@ -19,7 +19,7 @@ def login():
         if dbm.is_valid_password(uid,password):
             session['uid'] = uid
             print('correct entered')
-            return redirect('/profile')
+            return redirect('/')
         else:
             print('Retry')
             return render_template('login.html', error=error, msg="Entered username or password is incorrect. Try again!")
@@ -52,6 +52,10 @@ def create_user():
         return render_template('create_user.html', error=error, msg=msg)
     return render_template('create_user.html')
 #Static Routes'''
+@app.route('/logout', methods=['POST'])
+def logout():
+    del session["uid"]
+    return (jsonify(message="Success"), 200)
 '''
 @app.route('/common.css')
 def common():

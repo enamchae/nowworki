@@ -28,6 +28,15 @@ main > .header {
 
 .post-list {
     padding: 0.5em;
+
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.post-list > hr {
+    width: 80%;
+    margin: 1em;
 }
 
 .post-search-options {
@@ -120,6 +129,8 @@ main > .header {
 .post-list > ul {
     padding: 0;
     margin: 0;
+
+    width: 100%;
 }
 .post-list ul {
     list-style: none;

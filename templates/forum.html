@@ -25,10 +25,6 @@
 
                 <div>NowWork¡ / {{topic.capitalize()}}</div>
 
-                <a href="/addpost?topic={{topic}}">
-                    <button>＋ Add post</button>
-                </a>
-
                 <div>
                     {% if username %}
                     Logged in as {{username}} <button class="logout-button">Logout</button>
@@ -41,6 +37,12 @@
             </div>
                 
             <div class="post-list">
+                <a href="/addpost?topic={{topic}}">
+                    <button>＋ Add post</button>
+                </a>
+
+                <hr class="small" />
+
                 <div class="post-search-options">
                     {% if not fulltime %}
                     <div class="label">Internship</div>
@@ -64,10 +66,10 @@
                 <ul>
                     {% for firstname, Title, pid, entrytime in result %}
                     <li>
-                        <button class="post-preview">
+                        <button class="post-preview" data-pid="{{pid}}">
                             <h2>{{Title}}</h2>
                         </button>
-                        <ul pid={{pid}} >
+                        <ul data-pid="{{pid}}" >
                         </ul>
                     </li>
                     {% endfor %}

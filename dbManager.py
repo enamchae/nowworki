@@ -122,8 +122,8 @@ def get_post(pid):
         cursor = db_connection.cursor(buffered=True)
         cursor.execute('SELECT User.name as firstname, Title, text, entrytime '
                                     'FROM Post,User '
-                                    'WHERE Post.UID=User.UID AND post.PID=(%s)'
-                                    'ORDER BY time desc;', (pid,))
+                                    'WHERE Post.UID=User.UID AND Post.PID=(%s)'
+                                    'ORDER BY entrytime desc;', (pid,))
         db_connection.commit()
         return cursor.fetchall()
 #Implement the getting the replys
@@ -138,10 +138,10 @@ def get_postRep(pid):
     else:
         print("Getting the post replys")
         db_connection = mysql.connector.connect(**info)
-        cursor = db_connection.cursor()
-        cursor.execute('SELECT RID, PostRep.name as Title, USER.name as firstname, text, entrytime '
+        cursor = db_connection.cursor(buffered=True)
+        cursor.execute('SELECT RID, PostRep.Title, User.name as firstname, text, entrytime '
                                     'FROM PostRep,User '
-                                    'WHERE PostRep.UID=User.name AND PID = (?) '
+                                    'WHERE PostRep.UID=User.name AND PID = (%s) '
                                     'ORDER BY RID asc;', (pid,))
         db_connection.commit()
         return cursor.fetchall()
