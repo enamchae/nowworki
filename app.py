@@ -65,13 +65,23 @@ def indexjs():
 
 @app.route('/forum/<string:topic>')
 def forum(topic: str):
+    if "fulltime" not in request.args:
+        if "?" in request.url:
+            new_url = request.url.replace("?", "?fulltime=0")
+        else:
+            new_url = request.url + "?fulltime=0"
+        
+        return redirect(new_url) # hacky
+    
+    fulltime = request.args.get("fulltime") == "1"
+    
     if "uid" in session:
-        user = session["uid"]
+        username = session["uid"]
     else:
-        user = None
+        username = None
 
-    request = dbm.get_posts(topic)
-    return render_template('forum.html', topic=topic, result=request, user=user)
+    posts = dbm.get_posts(topic, fulltime)
+    return render_template('forum.html', topic=topic, result=posts, username=username, fulltime=fulltime)
 
 @app.route('/forumleftrep/<string:pid>')
 def forumleftrep(pid: str):

@@ -30,12 +30,19 @@
                 </a>
 
                 <div>
-                    Logged in as {{user}}
+                    {% if username %}
+                    Logged in as {{username}} <button class="logout-button">Logout</button>
+                    {% else %}
+                    Not logged in <a href="/login">
+                        <button>Log in</button>
+                    </a> 
+                    {% endif %}
                 </div>
             </div>
                 
             <div class="post-list">
                 <div class="post-search-options">
+                    {% if not fulltime %}
                     <div class="label">Internship</div>
 
                     <button class="switch">
@@ -43,6 +50,15 @@
                     </button>
 
                     <div class="label disabled">Full-time</div>
+                    {% else %}
+                    <div class="label disabled">Internship</div>
+
+                    <button class="switch switched">
+                        <div class="switch-handle"></div>
+                    </button>
+
+                    <div class="label">Full-time</div>
+                    {% endif %}
                 </div>
 
                 <ul>

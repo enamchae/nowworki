@@ -8,6 +8,10 @@ document.querySelector(".switch").addEventListener("click", event => {
 
     searchOptions.firstElementChild.classList.toggle("disabled", classList.contains("switched"));
     searchOptions.lastElementChild.classList.toggle("disabled", !classList.contains("switched"));
+
+    const urlSearchParams = new URLSearchParams(location.search);
+    urlSearchParams.set("fulltime", classList.contains("switched") ? "1" : "0");
+    location.replace(`${location.pathname}?${urlSearchParams}`);
 });
 
 for (const element of document.querySelectorAll(".post-preview")) {
