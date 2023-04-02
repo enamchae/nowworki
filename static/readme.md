@@ -6,7 +6,7 @@ Create User Table
     password char(32) not null,
     PRIMARY KEY(UID)
     )
-
+Use sql9610407;
 Create Posts
 
     Create TABLE Post(
@@ -25,10 +25,10 @@ Create Post Replies
         UID varchar(10),
         text TEXT not null,
         PID int,
-        RID tinyint,
+        RID int autocrement,
         time time,
         Title text,
-        PRIMARY KEY (PID, RID),
+        PRIMARY KEY (RID),
         FOREIGN KEY (PID) REFERENCES Post(PID),
         FOREIGN KEY (UID) REFERENCES User(UID)
     )
