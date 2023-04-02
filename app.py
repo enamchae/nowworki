@@ -89,7 +89,8 @@ def forum(topic: str):
         username = None
 
     posts = dbm.get_posts(topic, fulltime)
-    return render_template('forum.html', topic=topic, result=posts, username=username, fulltime=fulltime)
+    results_empty = len(posts) == 0
+    return render_template('forum.html', topic=topic, result=posts, results_empty=results_empty, username=username, fulltime=fulltime)
 
 @app.route('/forumleftrep/<string:pid>')
 def forumleftrep(pid: str):
@@ -100,12 +101,20 @@ def forumleftrep(pid: str):
 def forumrightrep(pid: str):
     primarytext = dbm.get_post(pid)
     values = dbm.get_postRep(pid)
-    return render_template('forumrightrep.html', result=values, primarytext=primarytext)
+
+    if "topic" not in request.args:
+        return "Missing topic", 400
+    
+    topic = request.args.get("topic")
+
+    return render_template('forumrightrep.html', result=values, primarytext=primarytext, topic=topic)
 
 @app.route('/addpost')
 def addpost():
     if "uid" not in session:
         return redirect("/login")
+    
+    username = session["uid"]
 
     if "topic" not in request.args:
         return ("Missing topic", 404)
@@ -113,7 +122,7 @@ def addpost():
     topic = request.args.get('topic')
     reply_target_pid = (request.args.get('reply_target_pid')
             if 'reply_target_pid' in request.args else '')
-    return render_template('add_post.html', topic=topic, reply_target_pid=reply_target_pid)
+    return render_template('add_post.html', topic=topic, reply_target_pid=reply_target_pid, username=username)
 
 
 class AddPostBody(TypedDict):
@@ -121,6 +130,7 @@ class AddPostBody(TypedDict):
     body: str
     topic: str
     fulltime: bool
+    reply_target_pid: int
 
 
 @app.route('/api/post', methods=['POST']) 
@@ -131,7 +141,11 @@ def record_post():
         return ("Not logged in", 403)
 
     uid = session["uid"]
-    new_post = dbm.insert_post(uid, body["topic"], body["body"], body["fulltime"], body["title"], int(time.time() * 1000))
+
+    if "reply_target_pid" not in body:
+        new_post = dbm.insert_post(uid, body["topic"], body["body"], body["fulltime"], body["title"], int(time.time() * 1000))
+    else: 
+        new_post = dbm.insert_postrep(uid, body["body"], body["reply_target_pid"], body["title"])
 
     print(new_post)
     

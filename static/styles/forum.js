@@ -1,6 +1,8 @@
 const qs = (selector, context=document) => context.querySelector(selector);
 const qsa = (selector, context=document) => context.querySelectorAll(selector);
 
+const topic = globalThis.topic;
+
 const logoutButton = qs(".logout-button");
 logoutButton?.addEventListener("click", async () => {
     const response = await fetch("/logout", {method: "POST"});
@@ -29,6 +31,9 @@ qs(".switch").addEventListener("click", event => {
 for (const element of qsa(".post-preview")) {
     element.addEventListener("click", setActive);
 }
+
+const statusIndicator = qs(".status-indicator");
+
 let currentActivePostElement = null;
 // document.getElementById(id).style.visibility = "hidden";
 function setActive(event) {
@@ -50,10 +55,18 @@ function setActive(event) {
                     ul.innerHTML = text;
                 })
         const rightdiv = document.getElementById("textOutput");
-        const thesecondurl = "/forumrightrep/"+ pid;
+        const thesecondurl = "/forumrightrep/"+ pid + "?topic=" + topic;
+
+        const postElement = event.currentTarget;
+        qs(".post-list-ul")?.classList.add("disabled");
+        statusIndicator.classList.add("loading");
+
         fetch(thesecondurl, {method: "GET"})
                 .then(response => response.text())
                 .then(text => {
+                    
+                qs(".post-list-ul")?.classList.remove("disabled");
+                    statusIndicator.classList.remove("loading");
                     rightdiv.innerHTML = text;
                 })
         // var xmlHttp = new XMLHttpRequest();
