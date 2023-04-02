@@ -44,6 +44,7 @@ def get_post(category, fulltime=False):
 
 #Implement the getting the replys
 def get_postRep(pid):
+    connection = sql.connect('database.db')
     cursor = connection.execute('SELECT RID, name, text, time '
                                 'FROM PostRep,User '
                                 'WHERE Post.UID=User.name AND PID = (?) '
