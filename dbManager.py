@@ -120,7 +120,7 @@ def get_post(pid):
         print("Getting a post value")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor(buffered=True)
-        cursor.execute('SELECT User.name as firstname, Title, text, entrytime '
+        cursor.execute('SELECT User.name as firstname, Title, text, entrytime,PID '
                                     'FROM Post,User '
                                     'WHERE Post.UID=User.UID AND Post.PID=(%s)'
                                     'ORDER BY entrytime desc;', (pid,))
