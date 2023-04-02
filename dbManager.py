@@ -1,6 +1,6 @@
 import sqlite3 as sql
 import hashlib
-
+from datetime import datetime
 
 # inserts a user with the corresponding password to the database
 def insert_user(name,uid, password):
@@ -62,14 +62,16 @@ def get_postRep(pid):
     return cursor.fetchall()
 #Allows the creation of posts for the user
 def insert_post(uid, category,text,PID,Fulltime,time):
+    unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
     connection = sql.connect('database.db')
-    cursor = connection.execute('INSERT INTO post (uid, category,text,PID,Fulltime,time) VALUES (?,?,?,?,?,?);', (uid, category,text,PID,Fulltime,time))
+    cursor = connection.execute('INSERT INTO post (uid, category,text,PID,Fulltime,time) VALUES (?,?,?,?,?,?);', (uid, category,text,PID,Fulltime,unix_timestamp))
     return cursor.fetchall()
 
 def insert_postrep(uid, text, pid, rid, time):
+    unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
     connection = sql.connect('database.db')
     cursor = connection.execute('INSERT INTO PostRep (uid,text,pid,rid,time) VALUES (?,?,?,?,?);',
-                                (uid, text, pid, rid, time))
+                                (uid, text, pid, rid, unix_timestamp))
     return cursor.fetchall()
 '''
 def valid_name(first_name, last_name):
