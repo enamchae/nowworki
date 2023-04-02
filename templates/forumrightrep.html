@@ -1,0 +1,22 @@
+{% for firstname, Title, text, time in primarytext %}
+<h2>{{Title}}</h2>
+
+<div class="byline">
+    <div>{{ name }}</div>
+    <div>{{ time }}</div>
+</div>
+
+<p>{{ text}}</p>
+<hr />
+{% endfor %}
+{% for RID, Title, firstname, text, time in result %}
+<h2>{{Title}}</h2>
+
+<div class="byline">
+    <div>{{ name }}</div>
+    <div>{{ time }}</div>
+</div>
+
+<p>{{ text}}</p>
+<hr />
+{% endfor %}

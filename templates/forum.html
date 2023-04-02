@@ -42,57 +42,33 @@
                 </div>
 
                 <ul>
+                    {% for firstname, Title, text, time in result %}
                     <li>
                         <button class="post-preview">
-                            <h2>Post title</h2>
+                            <h2>{{Title}}</h2>
                         </button>
-                    </li>
-                    <li>
-                        <button class="post-preview active">
-                            <h2>Post title</h2>
-                        </button>
-                        <ul>
-                            <li>
-                                <button class="post-preview">
-                                    <h2>Y</h2>
-                                </button>
-                            </li>
-                            <li>
-                                <button class="post-preview">
-                                    <h2>Y</h2>
-                                </button>
-                            </li>
+                        <ul pid={{pid}} >
                         </ul>
                     </li>
-                    <li>
-                        <button class="post-preview">
-                            <h2>Post title</h2>
-                        </button>
-                        <ul>
-                            <li>
-                                <button class="post-preview">
-                                    <h2>Y</h2>
-                                </button>
-                            </li>
-                        </ul>
-                    </li>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="post">
                 <div>
-                    <h2>Post title</h2>
+                    <div id="textOutput">
+                        <h2>Post title</h2>
 
-                    <div class="byline">
-                        <div>Firstname Lastname</div>
-                        <div>Timestamp</div>
+                        <div class="byline">
+                            <div>Firstname Lastname</div>
+                            <div>Timestamp</div>
+                        </div>
+
+                        <p>I just wanted to share my experience of how networking helped me land my dream tech job. After applying to dozens of jobs online and not hearing back, I realized that I needed to take a more proactive approach.</p>
+
+                        <p>I started attending local tech events and meetups, and even joined a few online communities. This allowed me to meet people in the industry, learn about new trends and technologies, and most importantly, build relationships.</p>
+
+                        <hr />
                     </div>
-
-                    <p>I just wanted to share my experience of how networking helped me land my dream tech job. After applying to dozens of jobs online and not hearing back, I realized that I needed to take a more proactive approach.</p>
-                    
-                    <p>I started attending local tech events and meetups, and even joined a few online communities. This allowed me to meet people in the industry, learn about new trends and technologies, and most importantly, build relationships.</p>
-
-                    <hr />
-
                     <a href="/addpost">
                         <button>⤶ Write a reply</button>
                     </a>

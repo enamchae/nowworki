@@ -16,6 +16,7 @@ Create Posts
     PID int not null,
     FullTime int,
     time int not null,
+    name TEXT not null,
     PRIMARY KEY (PID),
     FOREIGN KEY (UID) REFERENCES User
     )
@@ -27,6 +28,7 @@ Create Post Replies
         PID int,
         RID int,
         time int,
+        name text,
         PRIMARY KEY (PID, RID),
         FOREIGN KEY (PID) REFERENCES Post,
         FOREIGN KEY (UID) REFERENCES User
