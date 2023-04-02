@@ -143,6 +143,10 @@ def record_post():
 def help():
     return render_template('help.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 
 
 
