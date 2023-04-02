@@ -131,9 +131,9 @@ main > .header {
 .post-list ul {
     list-style: none;
 }
-.post-list .post-preview:not(.active) + ul {
+/* .post-list .post-preview:not(.active) + ul {
     display: none;
-}
+} */
 
 .post-list h2 {
     margin: 0;

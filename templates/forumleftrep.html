@@ -1,7 +1,7 @@
-{% for name in result %}
+{% for post in result %}
 <li>
-    <button class="post-preview" data-pid="{{result.pid}}">
-        <h2>{{ name}}</h2>
+    <button class="post-preview" data-pid="{{post.pid}}">
+        <h2>{{post[1]}}</h2>
     </button>
 </li>
 {% endfor %}
