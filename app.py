@@ -144,7 +144,7 @@ def record_post():
 
     uid = session["uid"]
 
-    if "reply_target_pid" not in body:
+    if body['reply_target_pid'] == '':
         new_post = dbm.insert_post(uid, body["topic"], body["body"], body["fulltime"], body["title"], int(time.time() * 1000))
     else: 
         new_post = dbm.insert_postrep(uid, body["body"], body["reply_target_pid"], body["title"])
