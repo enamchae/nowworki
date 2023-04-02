@@ -138,10 +138,10 @@ def get_postRep(pid):
     else:
         print("Getting the post replys")
         db_connection = mysql.connector.connect(**info)
-        cursor = db_connection.cursor()
-        cursor.execute('SELECT RID, PostRep.name as Title, USER.name as firstname, text, entrytime '
+        cursor = db_connection.cursor(buffered=True)
+        cursor.execute('SELECT RID, Title, User.name as firstname, text, entrytime '
                                     'FROM PostRep,User '
-                                    'WHERE PostRep.UID=User.name AND PID = (?) '
+                                    'WHERE PostRep.UID=User.UID AND PID = (%s) '
                                     'ORDER BY RID asc;', (pid,))
         db_connection.commit()
         return cursor.fetchall()
@@ -162,7 +162,7 @@ def insert_post(uid, category,text,Fulltime,Title,time):
         cursor = db_connection.cursor()
         cursor.execute('INSERT INTO Post (uid, category,text,Fulltime,Title) VALUES (%s,%s,%s,%s);', (uid, category,text,Fulltime,Title))
         db_connection.commit()
-        return cursor.fetchall()
+        return
 
 def insert_postrep(uid, text, pid, rid, time):
     if local:

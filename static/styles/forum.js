@@ -33,6 +33,13 @@ function setActive(event) {
                 .then(text => {
                     ul.innerHTML = text;
                 })
+        rightdiv = document.getElementById(textOutput);
+        const thesecondurl = "/forumrightrep/"+ pid;
+        fetch(thesecondurl, {method: "GET"})
+                .then(response => response.text())
+                .then(text => {
+                    rightdiv.innerHTML = text;
+                })
         // var xmlHttp = new XMLHttpRequest();
         // xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
         // xmlHttp.send( null );
