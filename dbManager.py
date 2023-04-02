@@ -99,7 +99,7 @@ def get_posts(category, fulltime=False):
         print("Getting the posts")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor(buffered=True)
-        fun = 'SELECT User.name as firstname, Post.Title as Title,Post.PID as pid, time FROM Post,User WHERE Post.UID=User.UID AND Category = (%s) AND FullTime= (%s) ORDER BY time desc;'
+        fun = 'SELECT User.name as firstname, Post.Title as Title,Post.PID as pid, entrytime FROM Post,User WHERE Post.UID=User.UID AND Category = (%s) AND FullTime= (%s) ORDER BY entrytime desc;'
         cursor.execute(fun, (category, fulltime))
         db_connection.commit()
         return cursor.fetchall()
@@ -118,7 +118,7 @@ def get_post(pid):
         print("Getting a post value")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor(buffered=True)
-        cursor.execute('SELECT User.name as firstname, Title, text, time '
+        cursor.execute('SELECT User.name as firstname, Title, text, entrytime '
                                     'FROM Post,User '
                                     'WHERE Post.UID=User.UID AND post.PID=(%s)'
                                     'ORDER BY time desc;', (pid,))
@@ -128,7 +128,7 @@ def get_post(pid):
 def get_postRep(pid):
     if local:
         connection = sql.connect('database.db')
-        cursor = connection.execute('SELECT RID, PostRep.name as Title, USER.name as firstname, text, time '
+        cursor = connection.execute('SELECT RID, PostRep.name as Title, USER.name as firstname, text, entrytime '
                                     'FROM PostRep,User '
                                     'WHERE PostRep.UID=User.name AND PID = (?) '
                                     'ORDER BY RID asc;', (pid,))
@@ -173,8 +173,8 @@ def insert_postrep(uid, text, pid, rid, time):
         print("Inserting post reply")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor()
-        cursor.execute('INSERT INTO PostRep (uid,text,pid,rid,time) VALUES (?,?,?,?,?);',
-                                    (uid, text, pid, rid, unix_timestamp))
+        cursor.execute('INSERT INTO PostRep (uid,text,pid,rid) VALUES (?,?,?,?);',
+                                    (uid, text, pid, rid))
         db_connection.commit()
         return cursor.fetchall()
 '''
