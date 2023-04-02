@@ -141,7 +141,7 @@ def get_postRep(pid):
         cursor = db_connection.cursor(buffered=True)
         cursor.execute('SELECT RID, PostRep.Title, User.name as firstname, text, entrytime '
                                     'FROM PostRep,User '
-                                    'WHERE PostRep.UID=User.name AND PID = (%s) '
+                                    'WHERE PostRep.UID=User.UID AND PID = (%s) '
                                     'ORDER BY RID asc;', (pid,))
         db_connection.commit()
         return cursor.fetchall()
