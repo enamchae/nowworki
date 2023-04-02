@@ -3,6 +3,11 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+
+        <script type="module">
+            globalThis.topic = "{{topic}}";
+        </script>
+
         <link href="{{ url_for('static', filename='styles/common.css') }}" rel="stylesheet" />
         <link href="{{ url_for('static', filename='styles/forum.css') }}" rel="stylesheet" />
         <script src="{{ url_for('static', filename='styles/forum.js') }}" type="module"></script>
@@ -63,7 +68,11 @@
                     {% endif %}
                 </div>
 
-                <ul>
+
+                {% if results_empty %}
+                <div>No posts in this category yet!</div>
+                {% else %}
+                <ul class="post-list-ul">
                     {% for firstname, Title, pid, entrytime in result %}
                     <li>
                         <button class="post-preview" data-pid="{{pid}}">
@@ -74,26 +83,17 @@
                     </li>
                     {% endfor %}
                 </ul>
+                {% endif %}
             </div>
             <div class="post">
                 <div>
+                    <div class="status-indicator"></div>
+                    
                     <div id="textOutput">
-                        <h2>Post title</h2>
-
-                        <div class="byline">
-                            <div>Firstname Lastname</div>
-                            <div>Timestamp</div>
-                        </div>
-
-                        <p>I just wanted to share my experience of how networking helped me land my dream tech job. After applying to dozens of jobs online and not hearing back, I realized that I needed to take a more proactive approach.</p>
-
-                        <p>I started attending local tech events and meetups, and even joined a few online communities. This allowed me to meet people in the industry, learn about new trends and technologies, and most importantly, build relationships.</p>
+                        Select a post from the left, or write your own!
 
                         <hr />
                     </div>
-                    <a href="/addpost?topic={{topic}}&reply_target_pid=0"> <!-- placeholder pid -->
-                        <button>↩ Write a reply</button>
-                    </a>
                 </div>
             </div>
         </main>

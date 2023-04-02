@@ -18,12 +18,28 @@
 
     <body>
         <main>
-            <button class="back-button">🡠 Back</button>
+            <div class="header">
+                <!-- <a href="/" class="material-symbols-outlined">arrow_back</a> -->
+                <button class="back-button">🡠 Back</button>
+
+                <div>NowWork¡ / {{topic.capitalize()}}</div>
+
+                <div>
+                    {% if username %}
+                    Logged in as {{username}} <button class="logout-button">Logout</button>
+                    {% else %}
+                    Not logged in <a href="/login">
+                        <button>Log in</button>
+                    </a> 
+                    {% endif %}
+                </div>
+            </div>
 
             <div class="editor-panel">
                 <h1>Add a post</h1>
 
                 <p>Posting to {{topic.capitalize()}}</p>
+                {% if not reply_target_pid %}
                 <p>
                     Relevant for
                     <span class="fulltime-radios">
@@ -41,8 +57,9 @@
                         </span>
                     </span>
                 </p>
+                {% endif %}
                 {% if reply_target_pid %}
-                <p>Responding to …</p>
+                <p>Responding to "…"</p>
 
                 {% endif %}
                 <hr />
@@ -50,7 +67,6 @@
                 <div class="post editor">
                     <h2 contenteditable
                             data-placeholder="Enter a title"></h2>
-        
                     <div contenteditable
                             data-placeholder="Write your heart out"
                             class="body"></div>

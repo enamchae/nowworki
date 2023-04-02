@@ -1,13 +1,19 @@
 {% for firstname, Title, text, time,pid in primarytext %}
 <h2>{{Title}}</h2>
 
-<div class="byline" data.pid="{{pid}}">
+<div class="byline">
     <div>{{ firstname }}</div>
     <div>{{ time }}</div>
 </div>
 
-<p>{{ text}}</p>
+{% for line in text.split("\n") %}
+<p>{{line}}</p>
+{%endfor %}
 <hr />
+
+<a href="/addpost?topic={{topic}}&reply_target_pid={{pid}}">
+    <button>↩ Write a reply</button>
+</a>
 {% endfor %}
 {% for RID, Title, firstname, text, time in result %}
 <h2>{{Title}}</h2>
@@ -19,4 +25,8 @@
 
 <p>{{ text}}</p>
 <hr />
+
+<a href="/addpost?topic={{topic}}&reply_target_pid=0">
+    <button>↩ Write a reply</button>
+</a>
 {% endfor %}
