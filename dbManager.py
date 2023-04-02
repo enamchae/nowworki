@@ -147,7 +147,7 @@ def get_postRep(pid):
         return cursor.fetchall()
 
 #Allows the creation of posts for the user
-def insert_post(uid, category,text,Fulltime,time):
+def insert_post(uid, category,text,Fulltime,Title,time):
     if local:
         PID=12312
         unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
@@ -155,11 +155,12 @@ def insert_post(uid, category,text,Fulltime,time):
         cursor = connection.execute('INSERT INTO post (uid, category,text,PID,Fulltime,time) VALUES (?,?,?,?,?,?);', (uid, category,text,PID,Fulltime,unix_timestamp))
         return cursor.fetchall()
     else:
+        print(uid)
         unix_timestamp = (datetime.now() - datetime(1970, 1, 1)).total_seconds()
         print("Inserting Post")
         db_connection = mysql.connector.connect(**info)
         cursor = db_connection.cursor()
-        cursor.execute('INSERT INTO post (uid, category,text,Fulltime) VALUES (?,?,?,?,?);', (uid, category,text,Fulltime))
+        cursor.execute('INSERT INTO Post (uid, category,text,Fulltime,Title) VALUES (%s,%s,%s,%s);', (uid, category,text,Fulltime,Title))
         db_connection.commit()
         return cursor.fetchall()
 

@@ -16,4 +16,4 @@ def mysqlconnect():
 
 # Function Call For Connecting To Our Database
 mysqlconnect()
-dbm.insert_user("Besss","account3","Timkow")
+dbm.insert_user("Dr. Halla","Funtimesboy","Funtimesboy")
