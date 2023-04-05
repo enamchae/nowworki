@@ -1,5 +1,5 @@
 import sqlite3 as sql
-import MySQLdb
+import pymysql
 import hashlib
 from datetime import datetime
 import mysql.connector
@@ -9,7 +9,7 @@ info = {'host':"sql9.freemysqlhosting.net",'user':"sql9610407",'password':"d8zVi
 
 local = False;
 if not local:
-    connector = MySQLdb.connect(
+    connector = pymysql.connect(
         host="sql9.freemysqlhosting.net",
 
         user="sql9610407",
