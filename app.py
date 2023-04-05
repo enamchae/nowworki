@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, jsonify
 import json
 import time
+import os
 from typing import TypedDict
 import dbManager as dbm
 app = Flask(__name__)
@@ -167,4 +168,4 @@ def about():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=os.environ.get("PORT", "3000"), debug=True)
