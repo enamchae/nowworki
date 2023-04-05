@@ -1,4 +1,3 @@
-import sqlite3 as sql
 import pymysql
 import hashlib
 from datetime import datetime
@@ -6,9 +5,12 @@ import mysql.connector
 info = {'host':"sql9.freemysqlhosting.net",'user':"sql9610407",'password':"d8zViT6lIW",'database':"sql9610407",'port':3306}
 
 
+local = False
+if local:
+    # add to requirements.txt later if needed
+    import sqlite3 as sql
 
-local = False;
-if not local:
+else:
     connector = pymysql.connect(
         host="sql9.freemysqlhosting.net",
 
