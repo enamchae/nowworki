@@ -166,7 +166,5 @@ def about():
     return render_template('about.html', show_back_button=show_back_button)
 
 
-# if __name__ == '__main__':
-#     app.run(port=os.environ.get("PORT", "3000"), debug=True)
-
-app.run(port=os.environ.get("PORT", "3000"), debug=True)
+if __name__ == '__main__':
+    app.run(port=os.environ.get("PORT", "3000"), debug=True)
