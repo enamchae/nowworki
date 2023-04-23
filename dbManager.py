@@ -11,19 +11,23 @@ if local:
     import sqlite3 as sql
 
 else:
-    connector = pymysql.connect(
-        host="sql9.freemysqlhosting.net",
+    try:
+        connector = pymysql.connect(
+            host="sql9.freemysqlhosting.net",
 
-        user="sql9610407",
-        passwd="d8zViT6lIW",
-        db="sql9610407", port=3306
-    )
-    cursor = connector.cursor()
-    cursor.execute("select database();")
-    db = cursor.fetchone()
-    print("You're connected to dtabase: ", db)
-    db = cursor.fetchall()
-    connector.close()
+            user="sql9610407",
+            passwd="d8zViT6lIW",
+            db="sql9610407", port=3306
+        )
+        cursor = connector.cursor()
+        cursor.execute("select database();")
+        db = cursor.fetchone()
+        print("You're connected to dtabase: ", db)
+        db = cursor.fetchall()
+        connector.close()
+    except pymysql.err.OperationalError as error:
+        print(error)
+
 # inserts a user with the corresponding password to the database
 def insert_user(name,uid, password):
     hashPassword = hashlib.md5(password.encode('utf-8')).hexdigest()
